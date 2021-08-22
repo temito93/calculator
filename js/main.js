@@ -20,7 +20,7 @@ number.forEach((button) => {
       return;
     }
     num2 += e.target.innerText;
-    secondDis.innerText = num2;
+    secondDis.innerText = getFromattedNumber(num2);
   });
 });
 
@@ -39,12 +39,12 @@ operator.forEach((operation) => {
   });
 });
 
-function clear(operationName = "") {
+function clear(operationName) {
   num1 += num2 + " " + operationName + " ";
   firstDis.innerText = num1;
   secondDis.innerText = "";
   num2 = "";
-  secondDis.innerText = result;
+  secondDis.innerText = getFromattedNumber(result);
 }
 
 function mathOperation() {
@@ -124,3 +124,9 @@ deleteBtn.addEventListener("click", () => {
     secondDis.innerText = 0;
   }
 });
+
+function getFromattedNumber(num) {
+  let n = parseFloat(num);
+  let value = n.toLocaleString("en");
+  return value;
+}
