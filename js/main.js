@@ -36,7 +36,6 @@ operator.forEach((operation) => {
     }
     clear(operationName);
     lastOperation = operationName;
-    console.log(result);
   });
 });
 
@@ -51,5 +50,77 @@ function clear(operationName = "") {
 function mathOperation() {
   if (lastOperation === "*") {
     result = parseFloat(result) * parseFloat(num2);
+  } else if (lastOperation === "+") {
+    result = parseFloat(result) + parseFloat(num2);
+  } else if (lastOperation === "-") {
+    result = parseFloat(result) - parseFloat(num2);
+  } else if (lastOperation === "÷") {
+    result = parseFloat(result) / parseFloat(num2);
   }
 }
+
+equal.addEventListener("click", (e) => {
+  if (!num1 || !num2) {
+    return;
+  }
+  haveDot = false;
+  mathOperation();
+  clear();
+  num1 = "";
+  num2 = "";
+});
+
+window.addEventListener("keydown", (e) => {
+  if (
+    e.key === "0" ||
+    e.key === "1" ||
+    e.key === "2" ||
+    e.key === "3" ||
+    e.key === "4" ||
+    e.key === "5" ||
+    e.key === "6" ||
+    e.key === "7" ||
+    e.key === "8" ||
+    e.key === "9" ||
+    e.key === "."
+  ) {
+    clickButton(e.key);
+  } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+    clickOperation(e.key);
+  } else if (e.key == "Enter" || e.key == "=") {
+    equal.click();
+  }
+});
+
+function clickButton(key) {
+  number.forEach((e) => {
+    if (e.innerText === key) {
+      e.click();
+    }
+  });
+}
+function clickOperation(key) {
+  operator.forEach((e) => {
+    if (e.innerText === key) {
+      e.click();
+    }
+  });
+}
+
+ac.addEventListener("click", () => {
+  num1 = "";
+  num2 = "";
+  lastOperation = "";
+  firstDis.innerText = "";
+  secondDis.innerText = 0;
+});
+
+deleteBtn.addEventListener("click", () => {
+  let numbers2 = secondDis.innerText.toString();
+  let result = numbers2.slice(0, -1);
+  num2 = result;
+  secondDis.innerText = result;
+  if (secondDis.innerText == "") {
+    secondDis.innerText = 0;
+  }
+});
