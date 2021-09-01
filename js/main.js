@@ -23,11 +23,13 @@ number.forEach((button) => {
     if (e.target.innerText === "." && !num2) {
       return;
     }
+
     if (e.target.innerText === "." && !haveDot) {
       haveDot = true;
     } else if (e.target.innerText === "." && haveDot) {
       return;
     }
+
     num2 = num2 + e.target.innerText;
     if (num2 && haveDot) {
       secondDis.innerText = num2;
@@ -105,16 +107,34 @@ function clear(operationName = "") {
 }
 
 function mathOperation() {
+  let result2;
+
   if (lastOperation === "*") {
-    result = parseFloat(result) * parseFloat(num2);
+    result2 = parseFloat(result) * parseFloat(num2);
+    countValidation(result2, result2);
   } else if (lastOperation === "+") {
-    result = parseFloat(result) + parseFloat(num2);
+    result2 = parseFloat(result) + parseFloat(num2);
+    countValidation(result2, result2);
   } else if (lastOperation === "-") {
-    result = parseFloat(result) - parseFloat(num2);
+    result2 = parseFloat(result) - parseFloat(num2);
+    countValidation(result2, result2);
   } else if (lastOperation === "÷") {
-    result = parseFloat(result) / parseFloat(num2);
+    result2 = parseFloat(result) / parseFloat(num2);
+    countValidation(result2, result2);
   } else if (lastOperation === "^") {
-    result = parseFloat(result) ** parseFloat(num2);
+    result2 = parseFloat(result) ^ parseFloat(num2);
+    countValidation(result2, result2);
+  }
+}
+
+function countValidation(x, n) {
+  let element = x.toString();
+  if (element.length > 10) {
+    let newResult = element.split("", 10);
+    let newResult2 = newResult.join("");
+    return (result = newResult2);
+  } else {
+    return (result = n);
   }
 }
 
