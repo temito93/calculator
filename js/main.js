@@ -7,6 +7,7 @@ const firstDis = document.querySelector(".data-prev");
 const secondDis = document.querySelector(".data-cur");
 const neg = document.querySelector(".data-negative");
 const sqroot = document.querySelector(".square-root");
+const dotN = document.querySelector(".data-number2");
 
 let num1 = "";
 let num2 = "";
@@ -17,13 +18,10 @@ let err = "Error";
 let negative = false;
 let firstClick = true;
 let checkNeg = num2.includes("-");
+let operationName;
 
 number.forEach((button) => {
   button.addEventListener("click", (e) => {
-    if (e.target.innerText === "." && !num2) {
-      return;
-    }
-
     if (e.target.innerText === "." && !haveDot) {
       haveDot = true;
     } else if (e.target.innerText === "." && haveDot) {
@@ -31,12 +29,27 @@ number.forEach((button) => {
     }
 
     num2 = num2 + e.target.innerText;
+
     if (num2 && haveDot) {
       secondDis.innerText = num2;
     } else if (num2 && !haveDot) {
       secondDis.innerText = getFromattedNumber(num2);
     }
   });
+});
+
+dotN.addEventListener("click", () => {
+  if (num2 && !haveDot) {
+    haveDot = true;
+    num2 = num2 + dotN.innerText;
+    secondDis.innerText = num2;
+  }
+
+  if (secondDis.innerText == 0 && !haveDot) {
+    haveDot = true;
+    num2 = 0 + dotN.innerText;
+    secondDis.innerText = num2;
+  }
 });
 
 sqroot.addEventListener("click", (e) => {
@@ -86,13 +99,22 @@ operator.forEach((operation) => {
   operation.addEventListener("click", (e) => {
     if (!num2) return;
     haveDot = false;
-    const operationName = e.target.innerText;
+    operationName = e.target.innerText;
+
     if (num1 && num2 && lastOperation) {
       mathOperation();
     } else {
       result = parseFloat(num2);
     }
-
+    if (dotN) {
+      let newNum3 = num2.toString();
+      for (let i = newNum3.length - 1; i > newNum3.length - 2; i--) {
+        if (newNum3[i] == "." && operationName) {
+          let numResult7 = newNum3.substring(0, newNum3.length - 1);
+          num2 = numResult7;
+        }
+      }
+    }
     clear(operationName);
     lastOperation = operationName;
   });
