@@ -5,12 +5,17 @@ const ac = document.querySelector(".data-ac");
 const deleteBtn = document.querySelector(".data-delete");
 const firstDis = document.querySelector(".data-prev");
 const secondDis = document.querySelector(".data-cur");
+const neg = document.querySelector(".data-negative");
 
 let num1 = "";
 let num2 = "";
 let result = null;
 let lastOperation = "";
 let haveDot = false;
+let err = "Error";
+let negative = false;
+let firstClick = true;
+let checkNeg = num2.includes("-");
 
 number.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -19,9 +24,42 @@ number.forEach((button) => {
     } else if (e.target.innerText === "." && haveDot) {
       return;
     }
-    num2 += e.target.innerText;
+    num2 = num2 + e.target.innerText;
     secondDis.innerText = getFromattedNumber(num2);
   });
+});
+
+neg.addEventListener("click", () => {
+  if (firstClick && !negative && !checkNeg) {
+    if (!checkNeg && !negative) {
+      let number2 = secondDis.innerText;
+      let number3 = "-";
+      num2 = number3 + number2;
+      secondDis.innerText = num2;
+      console.log("--");
+      checkNeg = true;
+      negative = true;
+    }
+
+    firstClick = false;
+  } else {
+    if (checkNeg && negative && !firstClick) {
+      if (num2.includes("-")) {
+        let num3 = num2.slice(1, num2.length);
+        negResult = num3;
+        secondDis.innerText = num3;
+      } else if (!num2.includes("-")) {
+        let number2 = secondDis.innerText;
+        let number3 = "-";
+        num2 = number3 + number2;
+        secondDis.innerText = num2;
+        firstClick = true;
+      }
+      negative = false;
+      checkNeg = false;
+      firstClick = true;
+    }
+  }
 });
 
 operator.forEach((operation) => {
@@ -39,7 +77,7 @@ operator.forEach((operation) => {
   });
 });
 
-function clear(operationName) {
+function clear(operationName = "") {
   num1 += num2 + " " + operationName + " ";
   firstDis.innerText = num1;
   secondDis.innerText = "";
@@ -56,6 +94,8 @@ function mathOperation() {
     result = parseFloat(result) - parseFloat(num2);
   } else if (lastOperation === "÷") {
     result = parseFloat(result) / parseFloat(num2);
+  } else if (lastOperation === "^") {
+    result = parseFloat(result) ** parseFloat(num2);
   }
 }
 
@@ -116,10 +156,10 @@ ac.addEventListener("click", () => {
 });
 
 deleteBtn.addEventListener("click", () => {
-  let numbers2 = secondDis.innerText.toString();
+  let numbers2 = secondDis.innerText;
   let result = numbers2.slice(0, -1);
   num2 = result;
-  secondDis.innerText = result;
+  secondDis.innerText = num2;
   if (secondDis.innerText == "") {
     secondDis.innerText = 0;
   }
@@ -127,6 +167,6 @@ deleteBtn.addEventListener("click", () => {
 
 function getFromattedNumber(num) {
   let n = parseFloat(num);
-  let value = n.toLocaleString("en");
+  let value = n.toLocaleString("EN");
   return value;
 }
