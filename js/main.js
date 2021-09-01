@@ -26,7 +26,11 @@ number.forEach((button) => {
       return;
     }
     num2 = num2 + e.target.innerText;
-    secondDis.innerText = getFromattedNumber(num2);
+    if (num2 && haveDot) {
+      secondDis.innerText = num2;
+    } else if (num2 && !haveDot) {
+      secondDis.innerText = getFromattedNumber(num2);
+    }
   });
 });
 
