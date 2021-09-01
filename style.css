@@ -3,6 +3,20 @@ body {
   background: linear-gradient(to right, #543ab7, #00acc1);
 }
 
+.c-title {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
 .prev,
 .cur {
   color: #fff;
