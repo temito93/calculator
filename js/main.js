@@ -165,6 +165,15 @@ equal.addEventListener("click", (e) => {
     return;
   }
   haveDot = false;
+  if (dotN) {
+    let newNum3 = num2.toString();
+    for (let i = newNum3.length - 1; i > newNum3.length - 2; i--) {
+      if (newNum3[i] == "." && operationName) {
+        let numResult7 = newNum3.substring(0, newNum3.length - 1);
+        num2 = numResult7;
+      }
+    }
+  }
   mathOperation();
   clear();
   num1 = "";
