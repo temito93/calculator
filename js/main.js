@@ -144,7 +144,7 @@ function mathOperation() {
     result2 = parseFloat(result) / parseFloat(num2);
     countValidation(result2, result2);
   } else if (lastOperation === "^") {
-    result2 = parseFloat(result) ^ parseFloat(num2);
+    result2 = parseFloat(result) ** parseFloat(num2);
     countValidation(result2, result2);
   }
 }
