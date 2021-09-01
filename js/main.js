@@ -30,9 +30,11 @@ number.forEach((button) => {
   });
 });
 
-sqroot.addEventListener("click", () => {
+sqroot.addEventListener("click", (e) => {
   if (num2 && !negative) {
+    firstDis.innerText = num2 + sqroot.innerText;
     secondDis.innerText = Math.sqrt(num2);
+    num2 = "";
   } else if (num2 && negative) {
     secondDis.innerText = "Error";
   }
