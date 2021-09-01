@@ -6,6 +6,7 @@ const deleteBtn = document.querySelector(".data-delete");
 const firstDis = document.querySelector(".data-prev");
 const secondDis = document.querySelector(".data-cur");
 const neg = document.querySelector(".data-negative");
+const sqroot = document.querySelector(".square-root");
 
 let num1 = "";
 let num2 = "";
@@ -27,6 +28,14 @@ number.forEach((button) => {
     num2 = num2 + e.target.innerText;
     secondDis.innerText = getFromattedNumber(num2);
   });
+});
+
+sqroot.addEventListener("click", () => {
+  if (num2 && !negative) {
+    secondDis.innerText = Math.sqrt(num2);
+  } else if (num2 && negative) {
+    secondDis.innerText = "Error";
+  }
 });
 
 neg.addEventListener("click", () => {
@@ -72,6 +81,7 @@ operator.forEach((operation) => {
     } else {
       result = parseFloat(num2);
     }
+
     clear(operationName);
     lastOperation = operationName;
   });
