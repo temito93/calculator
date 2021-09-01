@@ -20,6 +20,9 @@ let checkNeg = num2.includes("-");
 
 number.forEach((button) => {
   button.addEventListener("click", (e) => {
+    if (e.target.innerText === "." && !num2) {
+      return;
+    }
     if (e.target.innerText === "." && !haveDot) {
       haveDot = true;
     } else if (e.target.innerText === "." && haveDot) {
